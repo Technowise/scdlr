@@ -32,9 +32,27 @@ var app = {
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+    onDeviceReady: function() 
+    {
         app.receivedEvent('deviceready');
         navigator.splashscreen.hide();
+        var url = 'https://api.soundcloud.com/tracks.json?client_id=b45b1aa10f1ac2941910a7f0d10f8e28' ;
+        $.ajax({
+            'url':url,
+            'data':{"q":"rihanna", "limit":3},
+            dataType:"json",
+            type:'get',
+            success:function(data)
+            {
+                //alert(JSON.stringify(data));
+                $("#search_result").append( JSON.stringify(data) );
+            },
+            error:function()
+            {
+                alert('error');
+            }
+        });        
+        
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
